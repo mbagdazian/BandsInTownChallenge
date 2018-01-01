@@ -39,7 +39,9 @@
         getEvents(artistName);
       };
 
-  
+      var gotoOffer = function(){
+          console.log("Offer");
+          };
 
       var getEvents = function(artistRequested){
         var queryURLEvents = "https://rest.bandsintown.com/artists/"+ encodeURIComponent(artistRequested) +"/events?app_id=bit_challenge"
@@ -62,11 +64,20 @@
                         for (i = 0; i < response.length; i++){
                           console.log(response.length);
                           //create var of tickets button
+                            var tixSTR = "";
 
+                            if (response[i].offers.length === 0) {
+                              tixSTR = "Sorry, tix not available";
+                            } else {
+                              var ref = response[i].offers[0].url;
+
+                              tixSTR ='<button onclick="gotoOffer(${ref})">Tickets</button>';
+                            };
+                      
                           //create var of date with moment.js
-                          var dateTime = response[i].datetime.moment().format("MMM, DD, YY") + "@" + response[i].datetime.moment().format("h:mm");
+                          var dateTime = moment(response[i].datetime).format("MMM, DD, YY") + " @ " + moment(response[i].datetime).format("h:mm");
 
-                          $("#theEventsTable").append("<tr><td>"+ dateTime + "</td>"+ "<td>"+ response[i].venue.name + "</td>" + "<td>"+ response[i].venue.city + "</td></tr>");
+                          $("#theEventsTable").append("<tr><td>"+ dateTime + "</td>"+ "<td id ='venueName'>"+ response[i].venue.name + "</td>" + "<td>"+ response[i].venue.city + "</td>" + "<td id='tixBTN'>"+ tixSTR + "</td></tr>");
                             };
                             };
                             };

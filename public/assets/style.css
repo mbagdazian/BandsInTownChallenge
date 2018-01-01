@@ -1,6 +1,12 @@
 
-#name {
+body { 
 	font-family: 'Lato', sans-serif;
-	font-size: 24;
+	font-size: 14;
 
+}
+
+
+
+#venueName {
+	font-weight: bold;
 }
