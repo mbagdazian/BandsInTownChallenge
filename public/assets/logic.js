@@ -39,9 +39,13 @@
         getEvents(artistName);
       };
 
-      var gotoOffer = function(){
-          console.log("Offer");
+      var gotoOffer = function(offerQueryURL){
+          // for debugging
+          console.log(offerQueryURL);
+          // send the browser off to the new url. (There may be other ways to do this, but this works.)
+          window.location.href = offerQueryURL;
           };
+
 
       var getEvents = function(artistRequested){
         var queryURLEvents = "https://rest.bandsintown.com/artists/"+ encodeURIComponent(artistRequested) +"/events?app_id=bit_challenge"
@@ -54,33 +58,41 @@
               //log the response JSON Object
               console.log(response);
               //sets up new function to tell user if artist has shows and displayes them in the HTML table element. 
-                      var displayEventsData = function(){
-                        //if no shows, return message
-                        if (response.length === 0){
-                          $("#theEventsTable").append("<tr><th>"+ 'Sorry, artist has no upcoming shows. Please check back soon' + "</th>");
-                        
-                        } else {
-                        //if there are events, return list of events
-                        for (i = 0; i < response.length; i++){
-                          console.log(response.length);
-                          //create var of tickets button
-                            var tixSTR = "";
+              var displayEventsData = function(){
+                //if no shows, return message
+                if (response.length === 0){
+                  $("#theEventsTable").append("<tr><th>"+ 'Sorry, artist has no upcoming shows. Please check back soon' + "</th>");
+                
+                } else {
+                  //if there are events, return list of events
+                  for (i = 0; i < response.length; i++){
+                    console.log(response.length);
+                    //create var of tickets button
+                      var tixSTR = "";
 
-                            if (response[i].offers.length === 0) {
-                              tixSTR = "Sorry, tix not available";
-                            } else {
-                              var ref = response[i].offers[0].url;
+                      if (response[i].offers.length === 0) {
+                        tixSTR = "Sorry, tix not available";
+                      } else {
+                        // this will create the callback string that you want                           
+                        var onclickhandler = 'gotoOffer(\'' + response[i].offers[0].url + '\')';
+                        // this is for debugging
+                        console.log(onclickhandler);
+                        // this sets up the callback handler on the button.
+                        tixSTR ='<button id="mybutton" onclick="'+onclickhandler+'">Tickets</button>';
+                      };
 
-                              tixSTR ='<button onclick="gotoOffer(${ref})">Tickets</button>';
-                            };
-                      
-                          //create var of date with moment.js
-                          var dateTime = moment(response[i].datetime).format("MMM, DD, YY") + " @ " + moment(response[i].datetime).format("h:mm");
+                    //create var of date with moment.js
+                    var dateTime = moment(response[i].datetime).format("MMM, DD, YY") + " @ " + moment(response[i].datetime).format("h:mm");
+                    
+                    //create var of location to adjust for Foreign and Domestic shows
+                    var location = response[i].venue.country == "United States" ? response[i].venue.region : response[i].venue.country;  
 
-                          $("#theEventsTable").append("<tr><td>"+ dateTime + "</td>"+ "<td id ='venueName'>"+ response[i].venue.name + "</td>" + "<td>"+ response[i].venue.city + "</td>" + "<td id='tixBTN'>"+ tixSTR + "</td></tr>");
-                            };
-                            };
-                            };
+                    //dynamically build the table
+
+                    $("#theEventsTable").append("<tr><td>"+ dateTime + "</td>"+ "<td id ='venueName'>"+ response[i].venue.name + "</td>" + "<td>"+ response[i].venue.city +", " + location + "</td>" + "<td id='tixBTN'>"+ tixSTR + "</td></tr>");
+                  };
+                };
+              };
               //call function to cycle through events
               displayEventsData();
            });
