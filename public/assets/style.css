@@ -1,14 +1,118 @@
 
 body { 
 	font-family: 'Lato', sans-serif;
-	font-size: 14;
+	font-size: 14px;
 
 }
 
-#mybutton{
-  background-color: ;
+#nav {
+	color: #2eb8b8;
+	background-color: #c2f0f0; 
+	font-weight: bold;
+	text-align: center;
+	padding: 15px;
+	font-size: 20px;
+}
+
+#submit{
+  background-color: white;
+  display: inline;
+  position: center;
+  padding: 5px;
+  margin: 5px;
+}
+
+#artistHeader{
+	display: inline;
+}
+
+#upcoming{
+	font-size: 26px;
+	font-weight: bold;
+	color: black;
+	margin: 5px;
+	padding: 10px;
+	position: center;
+}
+
+#name {
+	font-size: 30px;
+	font-weight: bold;
+	color: #2eb8b8;
+	margin: 5px;
+	padding: 10px;
+	position: center;
+
+}
+
+#img {
+	height: 100%
+	max-width: 100%;
+	margin: 10px;
+	padding: 10px;
+}
+
+
+hr { 
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: inset;
+    border-width: 3px;
+}
+
+#theEventsTable {
+	width: 80%;
+	padding: 15px;
+	position: center;
+	font-size: 18px;
+}
+
+#date {
+	color: #2eb8b8;
+	font-weight: bold;
 }
 
 #venueName {
 	font-weight: bold;
+	
+}
+
+button {
+    background-color: white;
+    color: #2eb8b8;
+    border: 2px solid #2eb8b8; 
+    font-size: 20px;
+    border-radius: 4px;
+}
+
+button:hover {
+    background-color: #2eb8b8; 
+    color: white;
+}
+#submit:hover {
+    background-color: #2eb8b8; 
+    color: white;
+}
+
+footer {
+	background-color: #c2f0f0;
+	text-align: center;
+	padding: 15px;
+	color: #2eb8b8;
+	font-weight: bold;
+	font-size: 18px;
+
+}
+/* Media Queries*/
+
+@media screen and (max-width: 350px) {
+#img {
+	height: 30%;
+	width: 30%;
+}
+
+
 }

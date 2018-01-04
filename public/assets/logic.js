@@ -16,7 +16,7 @@
              method: "GET"
            }).done(function(response) {
               //log the response JSON Object
-              console.log(response);
+              //console.log(response);
                 //puts image and band name on page
               var displayImage = function() {
                 var imagelink = response.thumb_url;
@@ -41,7 +41,7 @@
 
       var gotoOffer = function(offerQueryURL){
           // for debugging
-          console.log(offerQueryURL);
+          //console.log(offerQueryURL);
           // send the browser off to the new url. (There may be other ways to do this, but this works.)
           window.location.href = offerQueryURL;
           };
@@ -56,7 +56,7 @@
              method: "GET"
            }).done(function(response) {
               //log the response JSON Object
-              console.log(response);
+              //console.log(response);
               //sets up new function to tell user if artist has shows and displayes them in the HTML table element. 
               var displayEventsData = function(){
                 //if no shows, return message
@@ -76,7 +76,7 @@
                         // this will create the callback string that you want                           
                         var onclickhandler = 'gotoOffer(\'' + response[i].offers[0].url + '\')';
                         // this is for debugging
-                        console.log(onclickhandler);
+                        //console.log(onclickhandler);
                         // this sets up the callback handler on the button.
                         tixSTR ='<button id="mybutton" onclick="'+onclickhandler+'">Tickets</button>';
                       };
@@ -89,7 +89,7 @@
 
                     //dynamically build the table
 
-                    $("#theEventsTable").append("<tr><td>"+ dateTime + "</td>"+ "<td id ='venueName'>"+ response[i].venue.name + "</td>" + "<td>"+ response[i].venue.city +", " + location + "</td>" + "<td id='tixBTN'>"+ tixSTR + "</td></tr>");
+                    $("#theEventsTable").append("<tr><td id='date'>"+ dateTime + "</td>"+ "<td id ='venueName'>"+ response[i].venue.name + "</td>" + "<td>"+ response[i].venue.city +", " + location + "</td>" + "<td id='tixBTN'>"+ tixSTR + "</td><hr></tr>");
                   };
                 };
               };
